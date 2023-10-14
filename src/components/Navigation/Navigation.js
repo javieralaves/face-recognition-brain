@@ -1,9 +1,7 @@
 import React from 'react';
 
 const Navigation = () => {
-	return (
-		<nav style={{ display: 'flex', justifyContent: 'flex-end' }}>Sign Out</nav>
-	);
+	return <nav className='flex justify-end'>Sign Out</nav>;
 };
 
 export default Navigation;
