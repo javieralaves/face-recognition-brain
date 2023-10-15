@@ -3,9 +3,11 @@ import './App.css';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Logo from './components/Logo/Logo';
 import Navigation from './components/Navigation/Navigation';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 
 function App() {
 	const [imageInput, setImageInput] = useState();
+	const [displayedImage, setDisplayedImage] = useState();
 
 	const returnClarifaiRequest = (imageUrl) => {
 		console.log('imageUrl:', imageUrl);
@@ -44,15 +46,18 @@ function App() {
 	};
 
 	const onSubmit = () => {
-		console.log('click');
-
 		fetch(
 			'https://api.clarifai.com/v2/models/face-detection/outputs',
 			returnClarifaiRequest(imageInput)
 		)
 			.then((response) => response.json())
 			.then((response) => {
-				console.log('hi', response);
+				console.log('response:', response);
+				console.log(
+					'bounding box',
+					response.outputs[0].data.regions[0].region_info.bounding_box
+				);
+				setDisplayedImage(imageInput);
 			});
 	};
 
@@ -61,7 +66,7 @@ function App() {
 			<Navigation />
 			<Logo />
 			<ImageLinkForm setImageInput={setImageInput} onSubmit={onSubmit} />
-			{/* <FaceRecognition /> */}
+			<FaceRecognition image={displayedImage} />
 		</div>
 	);
 }
