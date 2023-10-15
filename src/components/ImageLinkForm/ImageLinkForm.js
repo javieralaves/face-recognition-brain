@@ -10,7 +10,7 @@ const ImageLinkForm = ({ setImageInput, onSubmit }) => {
 				<input
 					type='text'
 					className='w-96 rounded-md p-3'
-					onChange={setImageInput}
+					onChange={(e) => setImageInput(e.target.value)}
 				/>
 				<button
 					className='rounded-md font-medium py-3 px-4 ml-3 bg-slate-800 text-white transition-all duration-150 hover:bg-slate-900 hover:cursor-pointer'
