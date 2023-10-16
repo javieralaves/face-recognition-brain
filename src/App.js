@@ -47,6 +47,32 @@ function App() {
 		return requestOptions;
 	};
 
+	const calculateFaceLocation = (data) => {
+		const clarifaiFace =
+			data.outputs[0].data.regions[0].region_info.bounding_box;
+
+		const image = document.getElementById('inputImage');
+		const width = Number(image.width);
+		const height = Number(image.height);
+		console.log('image dimensions:', width, height);
+		console.log(
+			clarifaiFace.left_col,
+			clarifaiFace.top_row,
+			clarifaiFace.right_col,
+			clarifaiFace.bottom_row
+		);
+		return {
+			leftCol: clarifaiFace.left_col * width,
+			topRow: clarifaiFace.top_row * height,
+			rightCol: width - clarifaiFace.right_col * width,
+			bottomRow: height - clarifaiFace.bottom_row * height,
+		};
+	};
+
+	const displayFaceBox = (box) => {
+		console.log(box);
+		setBox(box);
+	};
 	const onSubmit = () => {
 		fetch(
 			'https://api.clarifai.com/v2/models/face-detection/outputs',
@@ -66,18 +92,8 @@ function App() {
 
 	const onImageLoad = () => {
 		if (clarifaiResponse) {
-			calculateFaceLocation(clarifaiResponse);
+			displayFaceBox(calculateFaceLocation(clarifaiResponse));
 		}
-	};
-
-	const calculateFaceLocation = (data) => {
-		const clarifaiFace =
-			data.outputs[0].data.regions[0].region_info.bounding_box;
-
-		const image = document.getElementById('inputImage');
-		const width = Number(image.width);
-		const height = Number(image.height);
-		console.log('image dimensions:', width, height);
 	};
 
 	return (
