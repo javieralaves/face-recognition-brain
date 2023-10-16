@@ -8,6 +8,8 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 function App() {
 	const [imageInput, setImageInput] = useState();
 	const [displayedImage, setDisplayedImage] = useState();
+	const [box, setBox] = useState({});
+	const [clarifaiResponse, setClarifaiResponse] = useState(null);
 
 	const returnClarifaiRequest = (imageUrl) => {
 		console.log('imageUrl:', imageUrl);
@@ -57,8 +59,25 @@ function App() {
 					'bounding box',
 					response.outputs[0].data.regions[0].region_info.bounding_box
 				);
+				setClarifaiResponse(response);
 				setDisplayedImage(imageInput);
 			});
+	};
+
+	const onImageLoad = () => {
+		if (clarifaiResponse) {
+			calculateFaceLocation(clarifaiResponse);
+		}
+	};
+
+	const calculateFaceLocation = (data) => {
+		const clarifaiFace =
+			data.outputs[0].data.regions[0].region_info.bounding_box;
+
+		const image = document.getElementById('inputImage');
+		const width = Number(image.width);
+		const height = Number(image.height);
+		console.log('image dimensions:', width, height);
 	};
 
 	return (
@@ -66,7 +85,7 @@ function App() {
 			<Navigation />
 			<Logo />
 			<ImageLinkForm setImageInput={setImageInput} onSubmit={onSubmit} />
-			<FaceRecognition image={displayedImage} />
+			<FaceRecognition image={displayedImage} onImageLoad={onImageLoad} />
 		</div>
 	);
 }

@@ -1,9 +1,18 @@
 import React from 'react';
 
-const FaceRecognition = ({ image }) => {
+const FaceRecognition = ({ image, onImageLoad }) => {
 	return (
-		<div className='flex justify-center'>
-			<img src={image} alt='' className='w-1/2 h-auto' />
+		<div className='flex justify-center items-center m-auto relative'>
+			<div className='mt-2'>
+				<img
+					id='inputImage'
+					alt=''
+					src={image}
+					width='600px'
+					height='auto'
+					onLoad={onImageLoad}
+				/>
+			</div>
 		</div>
 	);
 };
