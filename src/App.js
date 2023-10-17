@@ -11,6 +11,7 @@ function App() {
 	const [displayedImage, setDisplayedImage] = useState();
 	const [box, setBox] = useState({});
 	const [clarifaiResponse, setClarifaiResponse] = useState(null);
+	const [route, setRoute] = useState('signIn');
 
 	const returnClarifaiRequest = (imageUrl) => {
 		console.log('imageUrl:', imageUrl);
@@ -100,14 +101,19 @@ function App() {
 	return (
 		<div className='flex flex-col items-center min-h-screen'>
 			<Navigation />
-			<SignIn />
-			<Logo />
-			<ImageLinkForm setImageInput={setImageInput} onSubmit={onSubmit} />
-			<FaceRecognition
-				image={displayedImage}
-				onImageLoad={onImageLoad}
-				box={box}
-			/>
+			{route === 'signIn' ? (
+				<SignIn />
+			) : (
+				<>
+					<Logo />
+					<ImageLinkForm setImageInput={setImageInput} onSubmit={onSubmit} />
+					<FaceRecognition
+						image={displayedImage}
+						onImageLoad={onImageLoad}
+						box={box}
+					/>
+				</>
+			)}
 		</div>
 	);
 }
