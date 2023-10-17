@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SignIn = () => {
+const SignIn = ({ onRouteChange }) => {
 	return (
 		<div className=''>
 			<div className='max-w-lg w-full'>
@@ -36,6 +36,7 @@ const SignIn = () => {
 					</fieldset>
 					<div>
 						<input
+							onClick={() => onRouteChange('home')}
 							type='submit'
 							value='Sign in'
 							className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 cursor-pointer hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'

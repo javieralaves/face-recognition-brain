@@ -98,11 +98,15 @@ function App() {
 		}
 	};
 
+	const onRouteChange = (route) => {
+		setRoute(route);
+	};
+
 	return (
 		<div className='flex flex-col items-center min-h-screen'>
-			<Navigation />
+			<Navigation onRouteChange={onRouteChange} />
 			{route === 'signIn' ? (
-				<SignIn />
+				<SignIn onRouteChange={onRouteChange} />
 			) : (
 				<>
 					<Logo />
