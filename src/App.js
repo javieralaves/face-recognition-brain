@@ -13,6 +13,7 @@ function App() {
 	const [box, setBox] = useState({});
 	const [clarifaiResponse, setClarifaiResponse] = useState(null);
 	const [route, setRoute] = useState('signIn');
+	const [signedIn, setsignedIn] = useState(false);
 
 	const returnClarifaiRequest = (imageUrl) => {
 		console.log('imageUrl:', imageUrl);
@@ -101,11 +102,12 @@ function App() {
 
 	const onRouteChange = (route) => {
 		setRoute(route);
+		route === 'home' ? setsignedIn(true) : setsignedIn(false);
 	};
 
 	return (
 		<div className='flex flex-col items-center min-h-screen'>
-			<Navigation onRouteChange={onRouteChange} />
+			<Navigation onRouteChange={onRouteChange} signedIn={signedIn} />
 			{route === 'home' ? (
 				<>
 					<Logo />
