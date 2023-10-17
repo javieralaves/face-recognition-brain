@@ -1,14 +1,26 @@
 import React from 'react';
 
-const SignIn = ({ onRouteChange }) => {
+const Register = ({ onRouteChange }) => {
 	return (
 		<div className=''>
 			<div className='max-w-lg w-full'>
 				<form className='bg-white p-6 rounded-md shadow-md'>
 					<fieldset id='sign_up' className='mb-4'>
 						<legend className='text-center text-2xl font-semibold text-gray-900'>
-							Sign in
+							Register
 						</legend>
+						<div className='mt-4'>
+							<label htmlFor='name' className='sr-only'>
+								Name
+							</label>
+							<input
+								type='text'
+								name='name'
+								id='name'
+								className='appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+								placeholder='Name'
+							/>
+						</div>
 						<div className='mt-4'>
 							<label htmlFor='email-address' className='sr-only'>
 								Email
@@ -38,16 +50,16 @@ const SignIn = ({ onRouteChange }) => {
 						<input
 							onClick={() => onRouteChange('home')}
 							type='submit'
-							value='Sign in'
+							value='Register'
 							className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 cursor-pointer hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 						/>
 					</div>
 					<div className='mt-4 text-center text-sm cursor-pointer'>
 						<p
-							onClick={() => onRouteChange('register')}
+							onClick={() => onRouteChange('signIn')}
 							className='text-indigo-600 hover:text-indigo-500'
 						>
-							Register
+							Sign in
 						</p>
 					</div>
 				</form>
@@ -56,4 +68,4 @@ const SignIn = ({ onRouteChange }) => {
 	);
 };
 
-export default SignIn;
+export default Register;

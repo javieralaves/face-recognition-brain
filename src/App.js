@@ -5,6 +5,7 @@ import Logo from './components/Logo/Logo';
 import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
+import Register from './components/Register/Register';
 
 function App() {
 	const [imageInput, setImageInput] = useState();
@@ -105,9 +106,7 @@ function App() {
 	return (
 		<div className='flex flex-col items-center min-h-screen'>
 			<Navigation onRouteChange={onRouteChange} />
-			{route === 'signIn' ? (
-				<SignIn onRouteChange={onRouteChange} />
-			) : (
+			{route === 'home' ? (
 				<>
 					<Logo />
 					<ImageLinkForm setImageInput={setImageInput} onSubmit={onSubmit} />
@@ -117,6 +116,10 @@ function App() {
 						box={box}
 					/>
 				</>
+			) : route === 'signIn' ? (
+				<SignIn onRouteChange={onRouteChange} />
+			) : (
+				<Register onRouteChange={onRouteChange} />
 			)}
 		</div>
 	);
