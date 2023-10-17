@@ -4,6 +4,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Logo from './components/Logo/Logo';
 import Navigation from './components/Navigation/Navigation';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import SignIn from './components/SignIn/SignIn';
 
 function App() {
 	const [imageInput, setImageInput] = useState();
@@ -99,9 +100,14 @@ function App() {
 	return (
 		<div className='flex flex-col items-center min-h-screen'>
 			<Navigation />
+			<SignIn />
 			<Logo />
 			<ImageLinkForm setImageInput={setImageInput} onSubmit={onSubmit} />
-			<FaceRecognition image={displayedImage} onImageLoad={onImageLoad} />
+			<FaceRecognition
+				image={displayedImage}
+				onImageLoad={onImageLoad}
+				box={box}
+			/>
 		</div>
 	);
 }
