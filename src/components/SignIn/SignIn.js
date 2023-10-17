@@ -4,7 +4,7 @@ const SignIn = ({ onRouteChange }) => {
 	return (
 		<div className=''>
 			<div className='max-w-lg w-full'>
-				<form className='bg-white p-6 rounded-md shadow-md'>
+				<div className='bg-white p-6 rounded-md shadow-md'>
 					<fieldset id='sign_up' className='mb-4'>
 						<legend className='text-center text-2xl font-semibold text-gray-900'>
 							Sign in
@@ -50,7 +50,7 @@ const SignIn = ({ onRouteChange }) => {
 							Register
 						</p>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	);
