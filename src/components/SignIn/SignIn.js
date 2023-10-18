@@ -15,6 +15,7 @@ const SignIn = ({ onRouteChange }) => {
 		setPassword(event.target.value);
 	};
 
+	// function for signing in
 	const onSubmitSignIn = () => {
 		fetch('http://localhost:3000/signin', {
 			method: 'post',

@@ -26,6 +26,24 @@ function App() {
 	// state for whether user is signed in or not depending on route
 	const [signedIn, setsignedIn] = useState(false);
 
+	// state for signed in user
+	const [user, setUser] = useState({
+		id: '',
+		name: '',
+		email: '',
+		joined: '',
+	});
+
+	// load sign in user into session
+	const loadUser = (data) => {
+		setUser({
+			id: data.id,
+			name: data.name,
+			email: data.email,
+			joined: data.joined,
+		});
+	};
+
 	useEffect(() => {
 		fetch('http://localhost:3000/')
 			.then((response) => response.json())
@@ -145,7 +163,7 @@ function App() {
 			) : route === 'signIn' ? (
 				<SignIn onRouteChange={onRouteChange} />
 			) : (
-				<Register onRouteChange={onRouteChange} />
+				<Register loadUser={loadUser} onRouteChange={onRouteChange} />
 			)}
 		</div>
 	);

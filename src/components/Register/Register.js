@@ -1,6 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Register = ({ onRouteChange }) => {
+const Register = ({ onRouteChange, loadUser }) => {
+	// state for name, email and password
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	// function for updating name
+	const onNameChange = (event) => {
+		setName(event.target.value);
+	};
+
+	// function for updating email
+	const onEmailChange = (event) => {
+		setEmail(event.target.value);
+	};
+
+	// function for updating password
+	const onPasswordChange = (event) => {
+		setPassword(event.target.value);
+	};
+
+	// function for registering
+	const onSubmitRegister = () => {
+		fetch('http://localhost:3000/register', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				name: name,
+				email: email,
+				password: password,
+			}),
+		})
+			.then((response) => response.json())
+			.then((user) => {
+				if (user) {
+					loadUser(user);
+					onRouteChange('home');
+				}
+			});
+	};
+
 	return (
 		<div className=''>
 			<div className='max-w-lg w-full'>
@@ -19,6 +59,7 @@ const Register = ({ onRouteChange }) => {
 								id='name'
 								className='appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 								placeholder='Name'
+								onChange={onNameChange}
 							/>
 						</div>
 						<div className='mt-4'>
@@ -31,6 +72,7 @@ const Register = ({ onRouteChange }) => {
 								id='email-address'
 								className='appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 								placeholder='Email address'
+								onChange={onEmailChange}
 							/>
 						</div>
 						<div className='mt-4'>
@@ -43,12 +85,13 @@ const Register = ({ onRouteChange }) => {
 								id='password'
 								className='appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
 								placeholder='Password'
+								onChange={onPasswordChange}
 							/>
 						</div>
 					</fieldset>
 					<div>
 						<input
-							onClick={() => onRouteChange('home')}
+							onClick={() => onSubmitRegister()}
 							type='submit'
 							value='Register'
 							className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 cursor-pointer hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
