@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Logo from './components/Logo/Logo';
@@ -8,13 +8,31 @@ import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 
 function App() {
+	// image input state
 	const [imageInput, setImageInput] = useState();
+
+	// displayed image state (once it loads)
 	const [displayedImage, setDisplayedImage] = useState();
+
+	// face box state initialized at empty object
 	const [box, setBox] = useState({});
+
+	// clarifai response state once a response is processed
 	const [clarifaiResponse, setClarifaiResponse] = useState(null);
+
+	// routing state to move between screens
 	const [route, setRoute] = useState('signIn');
+
+	// state for whether user is signed in or not depending on route
 	const [signedIn, setsignedIn] = useState(false);
 
+	useEffect(() => {
+		fetch('http://localhost:3000/')
+			.then((response) => response.json())
+			.then(console.log);
+	}, []);
+
+	// returning request options from clarifai given the image url
 	const returnClarifaiRequest = (imageUrl) => {
 		console.log('imageUrl:', imageUrl);
 
@@ -51,6 +69,7 @@ function App() {
 		return requestOptions;
 	};
 
+	// calculating the face location given some data, returning object with box margins
 	const calculateFaceLocation = (data) => {
 		const clarifaiFace =
 			data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -73,10 +92,13 @@ function App() {
 		};
 	};
 
+	// setting box to state given box properties
 	const displayFaceBox = (box) => {
 		console.log(box);
 		setBox(box);
 	};
+
+	//  submit function, fetches request given the image, turns response to json, sets response, and sets displayed image
 	const onSubmit = () => {
 		fetch(
 			'https://api.clarifai.com/v2/models/face-detection/outputs',
@@ -94,12 +116,14 @@ function App() {
 			});
 	};
 
+	// given a clarifai response is provided, display face box given the calculated face location from the clarifai response
 	const onImageLoad = () => {
 		if (clarifaiResponse) {
 			displayFaceBox(calculateFaceLocation(clarifaiResponse));
 		}
 	};
 
+	// given a new route, set the route and handle signedIn state value to true or false
 	const onRouteChange = (route) => {
 		setRoute(route);
 		route === 'home' ? setsignedIn(true) : setsignedIn(false);
