@@ -161,7 +161,7 @@ function App() {
 					/>
 				</>
 			) : route === 'signIn' ? (
-				<SignIn onRouteChange={onRouteChange} />
+				<SignIn loadUser={loadUser} onRouteChange={onRouteChange} />
 			) : (
 				<Register loadUser={loadUser} onRouteChange={onRouteChange} />
 			)}
