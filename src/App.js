@@ -144,7 +144,24 @@ function App() {
 	// given a new route, set the route and handle signedIn state value to true or false
 	const onRouteChange = (route) => {
 		setRoute(route);
-		route === 'home' ? setsignedIn(true) : setsignedIn(false);
+		if (route === 'home') {
+			setsignedIn(true);
+		} else {
+			setsignedIn(false);
+
+			// reset user state
+			setUser({
+				id: '',
+				name: '',
+				email: '',
+				joined: '',
+			});
+
+			// reset imageInput
+			setImageInput('');
+			// reset displayedImage
+			setDisplayedImage('');
+		}
 	};
 
 	return (
